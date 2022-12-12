@@ -4,17 +4,17 @@ import "./App.css";
 import { Game } from "./components/Game";
 import { Results } from "./components/Results";
 import { Start } from "./components/Start";
+import { GameProvider } from "./contexts/GameContext";
 
 function App() {
-  //const [nickname, setNickname] = useState("");
-  //const [result, setResult] = useState(0);
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Start />} />
-        <Route path="/game" element={<Game />} />
-        <Route path="/results" element={<Results />} />
+        <GameProvider>
+          <Route path="/" element={<Start />} />
+          <Route path="/game" element={<Game />} />
+          <Route path="/results" element={<Results />} />
+        </GameProvider>
       </Routes>
     </BrowserRouter>
   );
