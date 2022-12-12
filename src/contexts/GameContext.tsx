@@ -1,4 +1,11 @@
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { useNavigate } from "react-router-dom";
 
 interface ContextValue {
   nickname: string;
@@ -12,6 +19,12 @@ const Context = createContext<ContextValue | null>(null);
 export const GameProvider = ({ children }: PropsWithChildren) => {
   const [nickname, setNickname] = useState("");
   const [result, setResult] = useState(0);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (nickname !== "") {
+      navigate("/game");
+    }
+  }, [nickname]);
   const value = { nickname, setNickname, result, setResult };
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };

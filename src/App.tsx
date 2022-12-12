@@ -9,13 +9,13 @@ import { GameProvider } from "./contexts/GameContext";
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <GameProvider>
+      <GameProvider>
+        <Routes>
           <Route path="/" element={<Start />} />
           <Route path="/game" element={<Game />} />
           <Route path="/results" element={<Results />} />
-        </GameProvider>
-      </Routes>
+        </Routes>
+      </GameProvider>
     </BrowserRouter>
   );
 }
