@@ -1,0 +1,29 @@
+input[type="checkbox"]{
+    display:none;
+}
+
+.selected{
+    color:grey;
+}
+
+.correct{
+    color:green;
+}
+
+.correct::before {
+    display:block;
+    content:"Good"
+}
+
+.incorrect {
+    color: red;
+}
+
+.incorrect::before {
+    display:block;
+    content:"Bad"
+}
+
+.resultPoints {
+    color: #0096FF
+}

@@ -20,12 +20,20 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
   const [nickname, setNickname] = useState("");
   const [result, setResult] = useState(0);
   const navigate = useNavigate();
-  useEffect(() => {
-    if (nickname !== "") {
+  //   useEffect(() => {
+  //     if (nickname !== "") {
+  //       navigate("/game");
+  //     }
+  //   }, [nickname]);
+  const value = {
+    nickname,
+    setNickname: (nickname: string) => {
+      setNickname(nickname);
       navigate("/game");
-    }
-  }, [nickname]);
-  const value = { nickname, setNickname, result, setResult };
+    },
+    result,
+    setResult,
+  };
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 
