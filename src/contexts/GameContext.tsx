@@ -2,7 +2,7 @@ import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getGame } from "../services/game";
 
-interface GameData {
+export interface GameData {
   question: string;
   allwords: string[];
   goodwords: string[];

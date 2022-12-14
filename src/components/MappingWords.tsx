@@ -1,6 +1,7 @@
 import { FormEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGame } from "../contexts/GameContext";
+import { Word } from "./Word";
 
 export const MappingWords = () => {
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
@@ -52,35 +53,16 @@ export const MappingWords = () => {
         <ul>
           {data.allwords.map((word) => {
             const checked = selectedWords.includes(word);
-            let className;
-            if (checked) {
-              if (stillPlaying) {
-                className = "selected";
-              } else {
-                className = data.goodwords.includes(word)
-                  ? "correct"
-                  : "incorrect";
-              }
-            }
+
             return (
-              <li key={word} className={className}>
-                <input
-                  type="checkbox"
-                  id={word}
-                  checked={checked}
-                  onChange={() => {
-                    if (checked) {
-                      removeWord(word);
-                    } else {
-                      addWord(word);
-                    }
-                  }}
-                />
-                <label htmlFor={word}>
-                  {word}
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </label>
-              </li>
+              <Word
+                key={word}
+                removeWord={removeWord}
+                addWord={addWord}
+                checked={checked}
+                word={word}
+                data={data}
+              />
             );
           })}
         </ul>
