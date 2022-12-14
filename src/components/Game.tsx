@@ -3,15 +3,19 @@ import { useGame } from "../contexts/GameContext";
 import { MappingWords } from "./MappingWords";
 
 export const Game = () => {
-  const { nickname } = useGame();
+  const { nickname, data } = useGame();
 
   if (nickname === "") {
     return <Navigate to="/" />;
   }
 
+  if (data === null) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className="container">
-      <MappingWords />
+      <MappingWords data={data} />
     </div>
   );
 };

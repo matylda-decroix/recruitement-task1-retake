@@ -1,20 +1,27 @@
 import { FormEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGame } from "../contexts/GameContext";
+import { GameData, useGame } from "../contexts/GameContext";
 import { Word } from "./Word";
 
-export const MappingWords = () => {
+interface Props {
+  data: GameData;
+}
+
+export const MappingWords = ({ data }: Props) => {
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
-  const { stillPlaying, data, setStillPlaying, setResult } = useGame();
+  const { stillPlaying, setStillPlaying, setResult } = useGame();
   const navigate = useNavigate();
+
+  //   if (stillPlaying) {
+  //     return <ActiveGame />;
+  //   } else {
+  //     return <FinishedGame />;
+  //   }
 
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
     if (stillPlaying) {
       setStillPlaying(false);
-      return;
-    }
-    if (data === null) {
       return;
     }
 
@@ -42,30 +49,25 @@ export const MappingWords = () => {
     setSelectedWords((oldWords) => [...oldWords, word]);
   };
 
-  if (data === null) {
-    return <p>Loading...</p>;
-  }
+  const words = data.allwords.map((word) => {
+    const checked = selectedWords.includes(word);
+    return (
+      <Word
+        key={word}
+        removeWord={removeWord}
+        addWord={addWord}
+        checked={checked}
+        word={word}
+        data={data}
+      />
+    );
+  });
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>{data.question}</h2>
       <div className="container-cloud">
-        <ul>
-          {data.allwords.map((word) => {
-            const checked = selectedWords.includes(word);
-
-            return (
-              <Word
-                key={word}
-                removeWord={removeWord}
-                addWord={addWord}
-                checked={checked}
-                word={word}
-                data={data}
-              />
-            );
-          })}
-        </ul>
+        <ul>{words}</ul>
       </div>
       <button type="submit">
         {stillPlaying ? "Check answers" : "Finish game"}
