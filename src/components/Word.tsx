@@ -1,14 +1,19 @@
+import { useEffect, useState } from "react";
 import { GameData, useGame } from "../contexts/GameContext";
+import { useWord } from "../contexts/WordContext";
 
 interface Props {
-  toggleWord?: (word: string, sBs: boolean) => void;
-  checked: boolean;
   word: string;
   data: GameData;
 }
 
-export const Word = ({ toggleWord, checked, word, data }: Props) => {
+export const Word = ({ word, data }: Props) => {
   const { stillPlaying } = useGame();
+  const store = useWord();
+  const [checked, setChecked] = useState(store.getState()[word] ?? false);
+  useEffect(() => {
+    store.subscribe(setChecked, word);
+  }, []);
   let className;
   if (checked) {
     if (stillPlaying) {
@@ -24,8 +29,8 @@ export const Word = ({ toggleWord, checked, word, data }: Props) => {
         id={word}
         checked={checked}
         onChange={() => {
-          if (toggleWord) {
-            toggleWord(word, !checked);
+          if (stillPlaying) {
+            store.toggleWord(word);
           }
         }}
       />

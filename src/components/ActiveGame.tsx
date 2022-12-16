@@ -4,11 +4,9 @@ import { Word } from "./Word";
 
 interface Props {
   data: GameData;
-  selectedWords: string[];
-  toggleWord: (word: string, sBs: boolean) => void;
 }
 
-export const ActiveGame = ({ data, selectedWords, toggleWord }: Props) => {
+export const ActiveGame = ({ data }: Props) => {
   const { setStillPlaying } = useGame();
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
@@ -16,16 +14,7 @@ export const ActiveGame = ({ data, selectedWords, toggleWord }: Props) => {
   };
 
   const words = data.allwords.map((word) => {
-    const checked = selectedWords.includes(word);
-    return (
-      <Word
-        key={word}
-        toggleWord={toggleWord}
-        checked={checked}
-        word={word}
-        data={data}
-      />
-    );
+    return <Word key={word} word={word} data={data} />;
   });
   return (
     <form onSubmit={handleSubmit}>

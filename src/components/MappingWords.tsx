@@ -8,37 +8,11 @@ interface Props {
 }
 
 export const MappingWords = ({ data }: Props) => {
-  const [selectedWords, setSelectedWords] = useState<string[]>([]);
   const { stillPlaying } = useGame();
 
-  const removeWord = (word: string) => {
-    setSelectedWords((oldWords) => {
-      return oldWords.filter((oldWord) => {
-        return oldWord !== word;
-      });
-    });
-  };
-
-  const addWord = (word: string) => {
-    setSelectedWords((oldWords) => [...oldWords, word]);
-  };
-  const toggleWord = (word: string, shouldBeSelected: boolean) => {
-    if (!shouldBeSelected) {
-      removeWord(word);
-    } else {
-      addWord(word);
-    }
-  };
-
   if (stillPlaying) {
-    return (
-      <ActiveGame
-        data={data}
-        selectedWords={selectedWords}
-        toggleWord={toggleWord}
-      />
-    );
+    return <ActiveGame data={data} />;
   } else {
-    return <FinishedGame data={data} selectedWords={selectedWords} />;
+    return <FinishedGame data={data} />;
   }
 };

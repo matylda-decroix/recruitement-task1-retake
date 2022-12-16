@@ -1,22 +1,23 @@
 import { FormEventHandler } from "react";
 import { useNavigate } from "react-router-dom";
 import { GameData, useGame } from "../contexts/GameContext";
+import { useWord } from "../contexts/WordContext";
 import { Word } from "./Word";
 
 interface Props {
   data: GameData;
-  selectedWords: string[];
 }
 
-export const FinishedGame = ({ data, selectedWords }: Props) => {
+export const FinishedGame = ({ data }: Props) => {
   const { setResult } = useGame();
   const navigate = useNavigate();
+  const store = useWord();
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
 
-    const numberOfSelected = selectedWords.length;
-    const numberOfSelectedCorrect = data.goodwords.filter((word) =>
-      selectedWords.includes(word)
+    const numberOfSelected = Object.keys(store.getState()).length;
+    const numberOfSelectedCorrect = data.goodwords.filter(
+      (word) => store.getState()[word]
     ).length;
     const totalCorrect = data.goodwords.length;
     const missedCorrect = totalCorrect - numberOfSelectedCorrect;
@@ -27,8 +28,7 @@ export const FinishedGame = ({ data, selectedWords }: Props) => {
   };
 
   const words = data.allwords.map((word) => {
-    const checked = selectedWords.includes(word);
-    return <Word key={word} checked={checked} word={word} data={data} />;
+    return <Word key={word} word={word} data={data} />;
   });
   return (
     <form onSubmit={handleSubmit}>
