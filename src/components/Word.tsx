@@ -1,14 +1,13 @@
 import { GameData, useGame } from "../contexts/GameContext";
 
 interface Props {
-  removeWord: (word: string) => void;
-  addWord: (word: string) => void;
+  toggleWord?: (word: string, sBs: boolean) => void;
   checked: boolean;
   word: string;
   data: GameData;
 }
 
-export const Word = ({ removeWord, addWord, checked, word, data }: Props) => {
+export const Word = ({ toggleWord, checked, word, data }: Props) => {
   const { stillPlaying } = useGame();
   let className;
   if (checked) {
@@ -25,10 +24,8 @@ export const Word = ({ removeWord, addWord, checked, word, data }: Props) => {
         id={word}
         checked={checked}
         onChange={() => {
-          if (checked) {
-            removeWord(word);
-          } else {
-            addWord(word);
+          if (toggleWord) {
+            toggleWord(word, !checked);
           }
         }}
       />
