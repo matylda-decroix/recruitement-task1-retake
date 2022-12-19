@@ -1,7 +1,8 @@
 import { FormEventHandler } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GameData, useGame } from "../contexts/GameContext";
-import { useWord } from "../contexts/WordContext";
+import { RootState } from "../state/store";
 import { Word } from "./Word";
 
 interface Props {
@@ -11,13 +12,15 @@ interface Props {
 export const FinishedGame = ({ data }: Props) => {
   const { setResult } = useGame();
   const navigate = useNavigate();
-  const store = useWord();
+  const activeWords = useSelector((state: RootState) => {
+    return state.words;
+  });
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
 
-    const numberOfSelected = Object.keys(store.getState()).length;
+    const numberOfSelected = Object.keys(activeWords).length;
     const numberOfSelectedCorrect = data.goodwords.filter(
-      (word) => store.getState()[word]
+      (word) => activeWords[word]
     ).length;
     const totalCorrect = data.goodwords.length;
     const missedCorrect = totalCorrect - numberOfSelectedCorrect;

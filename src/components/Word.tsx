@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { GameData, useGame } from "../contexts/GameContext";
 import { useWord } from "../contexts/WordContext";
+import { wordsSlice } from "../state/features/words/wordsSlice";
+import { RootState, store } from "../state/store";
 
 interface Props {
   word: string;
@@ -9,11 +12,10 @@ interface Props {
 
 export const Word = ({ word, data }: Props) => {
   const { stillPlaying } = useGame();
-  const store = useWord();
-  const [checked, setChecked] = useState(store.getState()[word] ?? false);
-  useEffect(() => {
-    store.subscribe(setChecked, word);
-  }, []);
+  const checked = useSelector((state: RootState) => {
+    return state.words[word] ?? false;
+  });
+  const dispatch = useDispatch();
   let className;
   if (checked) {
     if (stillPlaying) {
@@ -30,7 +32,8 @@ export const Word = ({ word, data }: Props) => {
         checked={checked}
         onChange={() => {
           if (stillPlaying) {
-            store.toggleWord(word);
+            const action = wordsSlice.actions.toggleWord(word);
+            dispatch(action);
           }
         }}
       />
