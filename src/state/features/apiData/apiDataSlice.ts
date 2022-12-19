@@ -1,9 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: Record<string, boolean> = {};
+const initialState: { data: GameData | null } = { data: null };
+
+export interface GameData {
+  question: string;
+  allwords: string[];
+  goodwords: string[];
+}
 
 export const apiDataSlice = createSlice({
   name: "apiData",
   initialState,
-  reducers: {},
+  reducers: {
+    setData: (state, action: PayloadAction<GameData>) => {
+      state.data = action.payload;
+    },
+  },
 });
