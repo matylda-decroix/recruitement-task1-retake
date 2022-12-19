@@ -3,16 +3,12 @@ import { GameData, useGame } from "../contexts/GameContext";
 import { ActiveGame } from "./ActiveGame";
 import { FinishedGame } from "./FinishedGame";
 
-interface Props {
-  data: GameData;
-}
-
-export const MappingWords = ({ data }: Props) => {
+export const MappingWords = () => {
   const { stillPlaying } = useGame();
 
   if (stillPlaying) {
-    return <ActiveGame data={data} />;
+    return <ActiveGame />;
   } else {
-    return <FinishedGame data={data} />;
+    return <FinishedGame />;
   }
 };

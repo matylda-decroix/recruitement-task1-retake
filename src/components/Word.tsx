@@ -1,15 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import { GameData, useGame } from "../contexts/GameContext";
+import { useGame } from "../contexts/GameContext";
 import { wordsSlice } from "../state/features/words/wordsSlice";
 import { RootState } from "../state/store";
 
 interface Props {
   word: string;
-  data: GameData;
 }
 
-export const Word = ({ word, data }: Props) => {
+export const Word = ({ word }: Props) => {
   const { stillPlaying } = useGame();
+  const data = useSelector((state: RootState) => {
+    return state.apiData.data;
+  });
   const checked = useSelector((state: RootState) => {
     return state.words[word] ?? false;
   });
@@ -19,7 +21,7 @@ export const Word = ({ word, data }: Props) => {
     if (stillPlaying) {
       className = "selected";
     } else {
-      className = data.goodwords.includes(word) ? "correct" : "incorrect";
+      className = data?.goodwords.includes(word) ? "correct" : "incorrect";
     }
   }
   return (

@@ -1,24 +1,25 @@
 import { FormEventHandler } from "react";
-import { GameData, useGame } from "../contexts/GameContext";
+import { useSelector } from "react-redux";
+import { useGame } from "../contexts/GameContext";
+import { RootState } from "../state/store";
 import { Word } from "./Word";
 
-interface Props {
-  data: GameData;
-}
-
-export const ActiveGame = ({ data }: Props) => {
+export const ActiveGame = () => {
   const { setStillPlaying } = useGame();
+  const data = useSelector((state: RootState) => {
+    return state.apiData.data;
+  });
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
     setStillPlaying(false);
   };
 
-  const words = data.allwords.map((word) => {
-    return <Word key={word} word={word} data={data} />;
+  const words = data?.allwords.map((word) => {
+    return <Word key={word} word={word} />;
   });
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{data.question}</h2>
+      <h2>{data?.question}</h2>
       <div className="container-cloud">
         <ul>{words}</ul>
       </div>

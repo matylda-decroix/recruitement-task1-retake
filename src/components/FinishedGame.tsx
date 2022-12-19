@@ -1,23 +1,24 @@
 import { FormEventHandler } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { GameData, useGame } from "../contexts/GameContext";
+import { useGame } from "../contexts/GameContext";
 import { RootState } from "../state/store";
 import { Word } from "./Word";
 
-interface Props {
-  data: GameData;
-}
-
-export const FinishedGame = ({ data }: Props) => {
+export const FinishedGame = () => {
   const { setResult } = useGame();
+  const data = useSelector((state: RootState) => {
+    return state.apiData.data;
+  });
   const navigate = useNavigate();
   const activeWords = useSelector((state: RootState) => {
     return state.words;
   });
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
-
+    if (data === null) {
+      return;
+    }
     const numberOfSelected = Object.keys(activeWords).length;
     const numberOfSelectedCorrect = data.goodwords.filter(
       (word) => activeWords[word]
@@ -30,12 +31,12 @@ export const FinishedGame = ({ data }: Props) => {
     navigate("/results");
   };
 
-  const words = data.allwords.map((word) => {
-    return <Word key={word} word={word} data={data} />;
+  const words = data?.allwords.map((word) => {
+    return <Word key={word} word={word} />;
   });
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{data.question}</h2>
+      <h2>{data?.question}</h2>
       <div className="container-cloud">
         <ul>{words}</ul>
       </div>
