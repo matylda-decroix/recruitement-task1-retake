@@ -1,17 +1,17 @@
 import { FormEventHandler } from "react";
-import { useSelector } from "react-redux";
-import { useGame } from "../contexts/GameContext";
+import { useDispatch, useSelector } from "react-redux";
+import { gameSlice } from "../state/features/game/gameSlice";
 import { RootState } from "../state/store";
 import { Word } from "./Word";
 
 export const ActiveGame = () => {
-  const { setStillPlaying } = useGame();
+  const dispatch = useDispatch();
   const data = useSelector((state: RootState) => {
     return state.apiData.data;
   });
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
-    setStillPlaying(false);
+    dispatch(gameSlice.actions.finishGame());
   };
 
   const words = data?.allwords.map((word) => {

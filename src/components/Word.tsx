@@ -8,7 +8,9 @@ interface Props {
 }
 
 export const Word = ({ word }: Props) => {
-  const { stillPlaying } = useGame();
+  const stillPlaying = useSelector((state: RootState) => {
+    return state.game.stillPlaying;
+  });
   const data = useSelector((state: RootState) => {
     return state.apiData.data;
   });

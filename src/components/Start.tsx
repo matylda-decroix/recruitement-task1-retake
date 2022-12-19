@@ -1,13 +1,17 @@
-import { useGame } from "../contexts/GameContext";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { gameSlice } from "../state/features/game/gameSlice";
 
 export const Start = () => {
-  const { setNickname } = useGame();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit: React.FormEventHandler = (event) => {
     event.preventDefault();
     // @ts-ignore
     const nickname = event.target.nickname.value;
-    setNickname(nickname);
+    dispatch(gameSlice.actions.setNickname(nickname));
+    navigate("/game");
   };
 
   return (
