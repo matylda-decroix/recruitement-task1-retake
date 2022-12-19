@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GameData, useGame } from "../contexts/GameContext";
-import { useWord } from "../contexts/WordContext";
 import { wordsSlice } from "../state/features/words/wordsSlice";
-import { RootState, store } from "../state/store";
+import { RootState } from "../state/store";
 
 interface Props {
   word: string;
