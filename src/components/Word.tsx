@@ -4,6 +4,7 @@ import {
   useSelectChecked,
   useSelectData,
   useSelectStillPlaying,
+  useToggleWord,
 } from "../state/hooks";
 
 interface Props {
@@ -14,7 +15,7 @@ export const Word = ({ word }: Props) => {
   const stillPlaying = useSelectStillPlaying();
   const data = useSelectData();
   const checked = useSelectChecked(word);
-  const dispatch = useDispatch();
+  const toggleWord = useToggleWord();
   let className;
   if (checked) {
     if (stillPlaying) {
@@ -31,8 +32,7 @@ export const Word = ({ word }: Props) => {
         checked={checked}
         onChange={() => {
           if (stillPlaying) {
-            const action = wordsSlice.actions.toggleWord(word);
-            dispatch(action);
+            toggleWord(word);
           }
         }}
       />

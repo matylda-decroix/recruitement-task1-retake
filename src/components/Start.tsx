@@ -1,16 +1,15 @@
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { gameSlice } from "../state/features/game/gameSlice";
+import { useSetNickname } from "../state/hooks";
 
 export const Start = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const setNickname = useSetNickname();
 
   const handleSubmit: React.FormEventHandler = (event) => {
     event.preventDefault();
     // @ts-ignore
     const nickname = event.target.nickname.value;
-    dispatch(gameSlice.actions.setNickname(nickname));
+    setNickname(nickname);
     navigate("/game");
   };
 

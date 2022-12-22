@@ -1,20 +1,18 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getGame } from "../services/game";
-import { apiDataSlice } from "../state/features/apiData/apiDataSlice";
-import { useSelectData, useSelectNickname } from "../state/hooks";
+import { useSelectData, useSelectNickname, useSetData } from "../state/hooks";
 import { MappingWords } from "./MappingWords";
 
 export const Game = () => {
   const nickname = useSelectNickname();
   const data = useSelectData();
-  const dispatch = useDispatch();
+  const setData = useSetData();
   const navigate = useNavigate();
   useEffect(() => {
     if (nickname !== "") {
       getGame().then((data) => {
-        dispatch(apiDataSlice.actions.setData(data));
+        setData(data);
         navigate("/game");
       });
     }

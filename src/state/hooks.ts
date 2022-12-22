@@ -1,4 +1,7 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { apiDataSlice, GameData } from "./features/apiData/apiDataSlice";
+import { gameSlice } from "./features/game/gameSlice";
+import { wordsSlice } from "./features/words/wordsSlice";
 import { RootState } from "./store";
 
 export const useSelectNickname = () =>
@@ -36,3 +39,24 @@ export const useSelectChecked = (word: string) =>
   useSelector((state: RootState) => {
     return state.words[word] ?? false;
   });
+
+export const useSetNickname = () => {
+  const dispatch = useDispatch();
+  return (nickname: string) =>
+    dispatch(gameSlice.actions.setNickname(nickname));
+};
+
+export const useFinishGame = () => {
+  const dispatch = useDispatch();
+  return () => dispatch(gameSlice.actions.finishGame());
+};
+
+export const useSetData = () => {
+  const dispatch = useDispatch();
+  return (data: GameData) => dispatch(apiDataSlice.actions.setData(data));
+};
+
+export const useToggleWord = () => {
+  const dispatch = useDispatch();
+  return (word: string) => dispatch(wordsSlice.actions.toggleWord(word));
+};
