@@ -1,15 +1,19 @@
 import { useDispatch } from "react-redux";
 import { wordsSlice } from "../state/features/words/wordsSlice";
-import { useChecked, useData, useStillPlaying } from "../state/hooks";
+import {
+  useSelectChecked,
+  useSelectData,
+  useSelectStillPlaying,
+} from "../state/hooks";
 
 interface Props {
   word: string;
 }
 
 export const Word = ({ word }: Props) => {
-  const stillPlaying = useStillPlaying();
-  const data = useData();
-  const checked = useChecked(word);
+  const stillPlaying = useSelectStillPlaying();
+  const data = useSelectData();
+  const checked = useSelectChecked(word);
   const dispatch = useDispatch();
   let className;
   if (checked) {

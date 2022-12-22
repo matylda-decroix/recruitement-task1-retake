@@ -1,9 +1,9 @@
-import { useStillPlaying } from "../state/hooks";
+import { useSelectStillPlaying } from "../state/hooks";
 import { ActiveGame } from "./ActiveGame";
 import { FinishedGame } from "./FinishedGame";
 
 export const MappingWords = () => {
-  const stillPlaying = useStillPlaying();
+  const stillPlaying = useSelectStillPlaying();
   if (stillPlaying) {
     return <ActiveGame />;
   } else {

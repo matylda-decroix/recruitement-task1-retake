@@ -1,10 +1,10 @@
 import { FormEventHandler } from "react";
 import { useNavigate } from "react-router-dom";
-import { useData } from "../state/hooks";
+import { useSelectData } from "../state/hooks";
 import { Word } from "./Word";
 
 export const FinishedGame = () => {
-  const data = useData();
+  const data = useSelectData();
   const navigate = useNavigate();
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();

@@ -1,9 +1,9 @@
 import { Navigate } from "react-router-dom";
-import { useNickname, useResult } from "../state/hooks";
+import { useSelectNickname, useSelectResult } from "../state/hooks";
 
 export const Results = () => {
-  const nickname = useNickname();
-  const result = useResult();
+  const nickname = useSelectNickname();
+  const result = useSelectResult();
   if (nickname === "") {
     return <Navigate to="/" />;
   }

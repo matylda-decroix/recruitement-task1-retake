@@ -3,12 +3,12 @@ import { useDispatch } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getGame } from "../services/game";
 import { apiDataSlice } from "../state/features/apiData/apiDataSlice";
-import { useData, useNickname } from "../state/hooks";
+import { useSelectData, useSelectNickname } from "../state/hooks";
 import { MappingWords } from "./MappingWords";
 
 export const Game = () => {
-  const nickname = useNickname();
-  const data = useData();
+  const nickname = useSelectNickname();
+  const data = useSelectData();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {

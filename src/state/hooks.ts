@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
 
-export const useNickname = () =>
+export const useSelectNickname = () =>
   useSelector((state: RootState) => {
     return state.game.nickname;
   });
 
-export const useResult = () =>
+export const useSelectResult = () =>
   useSelector((state: RootState) => {
     const activeWords = state.words;
     const data = state.apiData.data;
@@ -22,17 +22,17 @@ export const useResult = () =>
     return score;
   });
 
-export const useData = () =>
+export const useSelectData = () =>
   useSelector((state: RootState) => {
     return state.apiData.data;
   });
 
-export const useStillPlaying = () =>
+export const useSelectStillPlaying = () =>
   useSelector((state: RootState) => {
     return state.game.stillPlaying;
   });
 
-export const useChecked = (word: string) =>
+export const useSelectChecked = (word: string) =>
   useSelector((state: RootState) => {
     return state.words[word] ?? false;
   });
