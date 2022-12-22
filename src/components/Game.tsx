@@ -1,18 +1,14 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getGame } from "../services/game";
 import { apiDataSlice } from "../state/features/apiData/apiDataSlice";
-import { RootState } from "../state/store";
+import { useData, useNickname } from "../state/hooks";
 import { MappingWords } from "./MappingWords";
 
 export const Game = () => {
-  const nickname = useSelector((state: RootState) => {
-    return state.game.nickname;
-  });
-  const data = useSelector((state: RootState) => {
-    return state.apiData.data;
-  });
+  const nickname = useNickname();
+  const data = useData();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {

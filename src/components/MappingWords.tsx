@@ -1,12 +1,9 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../state/store";
+import { useStillPlaying } from "../state/hooks";
 import { ActiveGame } from "./ActiveGame";
 import { FinishedGame } from "./FinishedGame";
 
 export const MappingWords = () => {
-  const stillPlaying = useSelector((state: RootState) => {
-    return state.game.stillPlaying;
-  });
+  const stillPlaying = useStillPlaying();
   if (stillPlaying) {
     return <ActiveGame />;
   } else {

@@ -1,14 +1,12 @@
 import { FormEventHandler } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { gameSlice } from "../state/features/game/gameSlice";
-import { RootState } from "../state/store";
+import { useData } from "../state/hooks";
 import { Word } from "./Word";
 
 export const ActiveGame = () => {
   const dispatch = useDispatch();
-  const data = useSelector((state: RootState) => {
-    return state.apiData.data;
-  });
+  const data = useData();
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
     dispatch(gameSlice.actions.finishGame());
