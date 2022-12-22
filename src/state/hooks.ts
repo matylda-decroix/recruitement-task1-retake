@@ -19,7 +19,7 @@ export const useSelectResult = () =>
     const missedCorrect = totalCorrect - numberOfSelectedCorrect;
     const incorrect = numberOfSelected - numberOfSelectedCorrect;
     const score = numberOfSelectedCorrect * 2 - (missedCorrect + incorrect);
-    return score;
+    return { score, incorrect, missedCorrect, totalCorrect };
   });
 
 export const useSelectData = () =>
